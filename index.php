@@ -44,7 +44,7 @@ require_once("header.php");
 
 			<div class="form_container">
 				<h1>Add/Drop</h1>
-				<form id="id_form" class="ui form segment" action="adddrop.php" method="POST">
+				<form id="id_form" class="ui form segment" action="add-drop.php" method="POST">
 				 	
 				 	<div class="field">
 				 		<label>Enter Student ID</label>

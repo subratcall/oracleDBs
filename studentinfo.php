@@ -128,13 +128,12 @@ oci_execute($array);
 			<form action="studentinfo.php" class="ui form" method="POST">
 				<tbody>
 					<tr>
-						<td><div class="ui left input"><input disabled="disabled" type="text" class="form-control" name="upd_id"></div></td>
+						<td><div class="ui left input"><input disabled="disabled" type="text" placeholder="<?php echo $studentid; ?>" class="form-control" name="upd_id"></div></td>
 						<td><div class="ui left input"><input type="text" class="form-control" name="upd_last"></div></td>
 						<td><div class="ui left input"><input type="text" class="form-control" name="upd_first"></div></td>
 						<td><div class="ui left input"><input type="text" class="form-control" name="upd_gender"></div></td>
 						<td><div class="ui left input"><input type="text" class="form-control" name="upd_birth"></div></td>
 						<td><div class="ui left input"><input type="text" class="form-control" name="upd_city"></div></td>
-						
 					</tr>
 				</tbody>
 			</table>
