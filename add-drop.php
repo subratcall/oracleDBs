@@ -116,6 +116,10 @@ oci_execute($ad_array);
 ?>
 
 	<body>
+		<a href="index.php"><div class="ui left labeled icon button">
+		  <i class="left arrow icon"></i>
+		  Back
+		</div></a>
 		<div class="container">
 			<?php echo "<h1> Transcript for " . $studentid . "</h1>"; ?>
 			<table class="ui table segment">
@@ -135,17 +139,17 @@ oci_execute($ad_array);
 				<tbody>
 					<?php
 						//Calculates Total Credit Hours/Grade Points
-						$total_hours = 0;
-						$total_gpa = 0;
-						$classes_taken = 0;
+						$sem_hours = 0;
+						$sem_points = 0;
+						$sem_taken = 0;
 
 						//Loop through Query result and Create Table Rows
 						while($row = oci_fetch_assoc($tr_array)){
-							$total_hours += $row['CREDIT_HOURS'];
+							$sem_hours += $row['CREDIT_HOURS'];
 
 							if($row['GRADE']){
-								$classes_taken++;
-								$total_gpa += GPACalc($row['GRADE']);
+								$sem_taken++;
+								$sem_points += GPACalc($row['GRADE']);
 							}
 
 							echo "<tr>";
@@ -168,9 +172,9 @@ oci_execute($ad_array);
 				<tbody>
 					<tr>
 						<?php 
-							$overall_gpa = number_format((float)$total_gpa/(float)$classes_taken, 2, '.', '');
-							echo "<td>" . $total_hours . "</td>";
-							echo "<td>" . $overall_gpa . "</td>"; 
+							$sem_gpa = number_format((float)$sem_points/(float)$sem_taken, 2, '.', '');
+							echo "<td>" . $sem_hours . "</td>";
+							echo "<td>" . $sem_gpa . "</td>"; 
 						?>
 					</tr>
 				</tbody>

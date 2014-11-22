@@ -85,6 +85,10 @@ oci_execute($array);
 ?>
 
 	<body>
+		<a href="index.php"><div class="ui left labeled icon button">
+		  <i class="left arrow icon"></i>
+		  Back
+		</div></a>
 		<div class="container">
 			<?php echo "<h1> Student Information for " . $studentid . "</h1>"; ?>
 			<table class="ui table segment">

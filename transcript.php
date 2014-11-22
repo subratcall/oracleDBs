@@ -46,13 +46,21 @@ oci_execute($array);
 
 //Variables for Each Semester
 $currentSemester = oci_fetch_assoc($array)['SEMESTER'];
-$total_hours = 0;
-$total_gpa = 0;
-$classes_taken = 0;
+$sem_points = 0;
+$sem_hours = 0;
+$sem_taken = 0;
+
+$overall_points = 0;
+$overall_hours = 0;
+$overall_taken = 0;
 
 ?>
 
 	<body>
+		<a href="index.php"><div class="ui left labeled icon button">
+		  <i class="left arrow icon"></i>
+		  Back
+		</div></a>
 		<div class="container">
 			<?php 
 				echo "<h1> Student Transcript for " . $studentid . "</h1>"; 
@@ -96,18 +104,24 @@ $classes_taken = 0;
 									<table class=\"ui table segment\">
 										<thead>
 											<tr>
-												<th>Total Credit Hours</th>
-												<th>Overall GPA</th>
+												<th>Semester Credit Hours</th>
+												<th>Semester GPA</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>";
-													if($classes_taken != 0)
-														$overall_gpa = number_format((float)$total_gpa/(float)$classes_taken, 2, '.', '');
+													//Gather Overall Data For Semester
+													$overall_points += $sem_points;
+													$overall_hours += $sem_hours;
+													$overall_taken += $sem_taken;
+
+													//Display GPA and Hours For Semester
+													if($sem_taken != 0)
+														$sem_gpa = number_format((float)$sem_points/(float)$sem_taken, 2, '.', '');
 													else
-														$overall_gpa = "N/A";
-													echo "<td>" . $total_hours . "</td>";
-													echo "<td>" . $overall_gpa . "</td>"; 
+														$sem_gpa = "N/A";
+													echo "<td>" . $sem_hours . "</td>";
+													echo "<td>" . $sem_gpa . "</td>"; 
 							
 								echo "		</tr>
 										</tbody>
@@ -134,16 +148,16 @@ $classes_taken = 0;
 
 								//Reset currentSemester + Semester Variables
 								$currentSemester = $row['SEMESTER'];
-								$total_hours = 0;
-								$total_gpa = 0;
-								$classes_taken = 0;
+								$sem_hours = 0;
+								$sem_points = 0;
+								$sem_taken = 0;
 							}
 
-							$total_hours += $row['CREDIT_HOURS'];
+							$sem_hours += $row['CREDIT_HOURS'];
 
 							if($row['GRADE']){
-								$classes_taken++;
-								$total_gpa += GPACalc($row['GRADE']);
+								$sem_taken++;
+								$sem_points += GPACalc($row['GRADE']);
 							}
 
 							//Create New Class Row
@@ -160,18 +174,46 @@ $classes_taken = 0;
 			<table class="ui table segment">
 				<thead>
 					<tr>
-						<th>Total Credit Hours</th>
+						<th>Semester Credit Hours</th>
+						<th>Semester GPA</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<?php 
+							//Gather Overall Data For Semester
+							$overall_points += $sem_points;
+							$overall_hours += $sem_hours;
+							$overall_taken += $sem_taken;
+
+							if($sem_taken != 0)
+								$sem_gpa = number_format((float)$sem_points/(float)$sem_taken, 2, '.', '');
+							else
+								$sem_gpa = "N/A";
+							echo "<td>" . $sem_hours . "</td>";
+							echo "<td>" . $sem_gpa . "</td>"; 
+						?>
+					</tr>
+				</tbody>
+			</table>
+
+			<!-- Overall GPA and Credit Hours -->
+			<h2>Overall GPA and Credit Hours</h2>
+			<table class="ui table segment">
+				<thead>
+					<tr>
+						<th>Overall Credit Hours</th>
 						<th>Overall GPA</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<?php 
-							if($classes_taken != 0)
-								$overall_gpa = number_format((float)$total_gpa/(float)$classes_taken, 2, '.', '');
+							if($overall_taken != 0)
+								$overall_gpa = number_format((float)$overall_points/(float)$overall_taken, 2, '.', '');
 							else
-								$overall_gpa = "N/A";
-							echo "<td>" . $total_hours . "</td>";
+								$sem_gpa = "N/A";
+							echo "<td>" . $overall_hours . "</td>";
 							echo "<td>" . $overall_gpa . "</td>"; 
 						?>
 					</tr>
