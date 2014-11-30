@@ -45,7 +45,8 @@ $array = oci_parse($conn, $query);
 oci_execute($array);
 
 //Variables for Each Semester
-$currentSemester = oci_fetch_assoc($array)['SEMESTER'];
+$temp = oci_fetch_assoc($array);
+$currentSemester = $temp['SEMESTER'];
 $sem_points = 0;
 $sem_hours = 0;
 $sem_taken = 0;
