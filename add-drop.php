@@ -122,6 +122,9 @@ oci_execute($ad_array);
 		</div></a>
 		<div class="container">
 			<?php echo "<h1> Transcript for " . $studentid . "</h1>"; ?>
+
+			<!-- Student's Complete Transcript -->
+
 			<table class="ui table segment">
 				<thead>
 					<tr>
@@ -172,6 +175,7 @@ oci_execute($ad_array);
 				<tbody>
 					<tr>
 						<?php 
+							//Total Credit Hours and GPA
 							$sem_gpa = number_format((float)$sem_points/(float)$sem_taken, 2, '.', '');
 							echo "<td>" . $sem_hours . "</td>";
 							echo "<td>" . $sem_gpa . "</td>"; 

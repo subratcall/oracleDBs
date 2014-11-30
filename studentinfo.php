@@ -17,6 +17,8 @@ include("functions.php");
 //Include Header
 require_once("header.php");
 
+//If no fields are filled, and the form is submitted
+//No new data will be displayed.
 if(empty($_POST["upd_id"])
 	&& empty($_POST["upd_last"])
 	&& empty($_POST["upd_first"])
@@ -29,7 +31,7 @@ if(empty($_POST["upd_id"])
 	$studentid = $_POST["studentid"];
 }
 
-
+//If Fields of form are filled
 else {
 	//Retrieve Student ID
 	if(!empty($_POST["upd_id"])){
@@ -39,11 +41,10 @@ else {
 		$studentid = $_POST["studentid"];
 	}
 
-	$original = $_POST["studentid"];
-
-	//Update Changes
+	//Create Array that will store Update Query
 	$subq = array();
 
+	//Conditionals used to construct Update Query based on filled fields
 	if(!empty($_POST["upd_id"]))
 		$subq[] = "STUDENT_ID = '" . $_POST["upd_id"] . "'";
 	if(!empty($_POST["upd_last"]))
@@ -57,8 +58,10 @@ else {
 	if(!empty($_POST["upd_city"]))
 		$subq[] = "CITY = '" . $_POST["upd_city"] . "'";
 
+	//Portion of Update Array is constructed and stored in $subq
+	//$subq is used to create final Update Query
 	$subq = implode(', ', $subq);
-	$updateQuery = "update STUDENT set " . $subq . " where STUDENT_ID = '" . $original . "'";
+	$updateQuery = "update STUDENT set " . $subq . " where STUDENT_ID = '" . $studentid . "'";
 	
 	$updateArray = oci_parse($conn, $updateQuery);
 	oci_execute($updateArray);
@@ -79,8 +82,6 @@ $query = "
 //Parse Associative Array from Query
 $array = oci_parse($conn, $query);
 oci_execute($array);
-
-
 
 ?>
 

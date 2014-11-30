@@ -3,6 +3,10 @@
 //Include Header
 require_once("header.php");
 
+//Index.php only contains forms which are submitted to either
+//transcript.php, add-drop.php, or studentinfo.php
+//A Student ID is submitted and used for each of these pages to retrieve and update information.
+
 ?>
 
 	<body>

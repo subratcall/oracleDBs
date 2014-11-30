@@ -84,8 +84,6 @@ $overall_taken = 0;
 				<tbody>
 					<?php
 
-						
-
 						//Reset Array for Looping
 						//Consider Placing Fetched Assoc Arrays into PHP Array
 						oci_execute($array);
@@ -172,6 +170,7 @@ $overall_taken = 0;
 				</tbody>
 			</table>
 
+			<!-- Overal Data For Final Semester -->
 			<table class="ui table segment">
 				<thead>
 					<tr>
